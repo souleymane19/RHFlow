@@ -3,6 +3,7 @@ package com.RhFlow.backend.services.impls;
 import com.RhFlow.backend.models.User;
 import com.RhFlow.backend.repositorys.UserRepository;
 import com.RhFlow.backend.services.UserService;
+import com.RhFlow.backend.validates.ObjectsValidator;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +15,11 @@ import java.util.List;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
+    private  ObjectsValidator<User> userValidator;
+
     @Override
     public void add(User user) {
+        userValidator.validate(user);
         userRepository.save(user);
     }
 
